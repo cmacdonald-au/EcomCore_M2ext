@@ -1,0 +1,10 @@
+# modman module description
+# see https://github.com/colinmollenhour/modman/ for more info
+
+# EcomCore M2ext
+src/app/code/local/EcomCore/M2ext                            app/code/local/EcomCore/M2ext
+src/app/etc/modules/EcomCore_M2ext.xml                           app/etc/modules/EcomCore_M2ext.xml
+src/app/design/adminhtml/default/default/template/ecomcore/m2ext app/design/adminhtml/default/default/template/ecomcore/m2ext
+src/app/design/frontend/base/default/layout/ecomcore/m2ext.xml   app/design/frontend/base/default/layout/ecomcore/m2ext.xml
+src/app/design/frontend/base/default/template/ecomcore/m2ext     app/design/frontend/base/default/template/ecomcore/m2ext
+src/skin/frontend/base/default/ecomcore/m2ext                    skin/frontend/base/default/ecomcore/m2ext

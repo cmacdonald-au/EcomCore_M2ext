@@ -1,0 +1,36 @@
+<config>
+    <modules>
+        <EcomCore_M2ext>
+            <version>0.1.0</version>
+        </EcomCore_M2ext>
+    </modules>
+    <global>
+        <models>
+            <eccm2ext>
+                <class>EcomCore_M2ext_Model</class>
+            </eccm2ext>
+        </models>
+    </global>
+    <adminhtml>
+        <events>
+            <adminhtml_block_html_before>
+                <observers>
+                    <eccm2ext>
+                        <!-- Add column to catalog product grid -->
+                        <class>ecomcore/adminhtml_observer</class>
+                        <method>onBlockHtmlBefore</method>
+                    </eccm2ext>
+                </observers>
+            </adminhtml_block_html_before>
+            <eav_collection_abstract_load_before>
+                <observers>
+                    <eccm2ext>
+                        <!-- Add column to product list -->
+                        <class>ecomcore/adminhtml_observer</class>
+                        <method>onEavLoadBefore</method>
+                    </eccm2ext>
+                </observers>
+            </eav_collection_abstract_load_before>
+        </events>
+    </adminhtml>
+</config>
