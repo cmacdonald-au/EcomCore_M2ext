@@ -10,25 +10,32 @@
                 <class>EcomCore_M2ext_Model</class>
             </eccm2ext>
         </models>
+        <helpers>
+            <eccm2ext>
+                <class>EcomCore_M2ext_Helper</class>
+            </eccm2ext>
+        </helpers>
     </global>
     <adminhtml>
         <events>
-            <adminhtml_block_html_before>
+            <core_block_abstract_prepare_layout_after>
                 <observers>
-                    <eccm2ext>
+                    <ecomcore_m2ext>
                         <!-- Add column to catalog product grid -->
-                        <class>ecomcore/adminhtml_observer</class>
+                        <type>singleton</type>
+                        <class>eccm2ext/observer_adminhtml</class>
                         <method>onBlockHtmlBefore</method>
-                    </eccm2ext>
+                    </ecomcore_m2ext>
                 </observers>
-            </adminhtml_block_html_before>
+            </core_block_abstract_prepare_layout_after>
             <eav_collection_abstract_load_before>
                 <observers>
-                    <eccm2ext>
+                    <ecomcore_m2ext>
                         <!-- Add column to product list -->
-                        <class>ecomcore/adminhtml_observer</class>
+                        <type>singleton</type>
+                        <class>eccm2ext/observer_collection</class>
                         <method>onEavLoadBefore</method>
-                    </eccm2ext>
+                    </ecomcore_m2ext>
                 </observers>
             </eav_collection_abstract_load_before>
         </events>
