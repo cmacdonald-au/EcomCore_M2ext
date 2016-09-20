@@ -21,7 +21,7 @@
     <modules>
         <EcomCore_M2ext>
             <active>true</active>
-            <codePool>community</codePool>
+            <codePool>local</codePool>
             <depends>
                 <Ess_M2ePro />
             </depends>

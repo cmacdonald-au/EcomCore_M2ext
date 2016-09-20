@@ -3,25 +3,53 @@
 class EcomCore_M2ext_Model_Adminhtml_Observer
 {
 
-    public function onBlockHtmlBefore(Varien_Event_Observer $observer) {
+    public function onBlockHtmlBefore(Varien_Event_Observer $observer)
+    {
         $block = $observer->getBlock();
         if (!isset($block)) return;
 
         switch ($block->getType()) {
             case 'adminhtml/catalog_product_grid':
-                $block->addColumn('ebayitemid', array(
-                    'header' => Mage::helper('eccm2ext')->__('eBay Item ID'),
-                    'index'  => 'ebayitemid',
-                ));
+                $block->addColumnAfter('ebayitemid', array(
+                    'header'   => Mage::helper('eccm2ext')->__('eBay Item ID'),
+                    'index'    => 'ebayitemid',
+                    'width'    => '100px',
+                    'sortable' => false,
+                    'filter_index' => 'm2eitem.item_id',
+                    'frame_callback' => array($this, 'callbackColumnEbayItemId'),
+                    'filter_condition_callback' => array($this, 'itemFilter'),
+                ), 'sku');
+
+                $block->sortColumnsByOrder();
+
                 break;
         }
     }
 
-    public function onEavLoadBefore(Varien_Event_Observer $observer) {
+    public function callbackColumnEbayItemId($value, $row, $column, $isExport)
+    {
+        if (is_null($value) || $value === '') {
+            return '';
+        }
+
+        return '<a href="http://ebay.com.au/itm/-/' . $value . '" target="_blank">'.$value.'</a>';
+    }
+
+    public function itemFilter($collection, $column)
+    {
+
+        $field = $column->getFilterIndex() ? $column->getFilterIndex() : $column->getIndex();
+        $value = $column->getFilter()->getValue();
+        $collection->getSelect()->where("$field=?", $value); // just as an example
+
+    }
+
+    public function onEavLoadBefore(Varien_Event_Observer $observer)
+    {
         $collection = $observer->getCollection();
         if (!isset($collection)) return;
 
-        if (is_a($collection, 'Mage_Catalog_Model_Resource_Eav_Mysql4_Product_Collection')) {
+        if (get_class($collection) == 'Mage_Catalog_Model_Resource_Product_Collection') {
 
             $res = Mage::getSingleton('core/resource');
             $collection->joinTable(
@@ -47,8 +75,10 @@ class EcomCore_M2ext_Model_Adminhtml_Observer
                 null,
                 'left'
             );
+            $collection->addFilterToMap('ebayitemid', 'm2eitem.item_id');
 
-            $collection->getSelect()->group('entity_id');
+            $collection->getSelect()->group('e.entity_id');
+
         }
     }
 
