@@ -3,19 +3,25 @@
 class EcomCore_M2ext_Model_Observer_Collection
 {
 
+    public $debug = false;
+
     public function onEavLoadBefore(Varien_Event_Observer $observer)
     {
         $collection = $observer->getCollection();
         if (!isset($collection)) return;
 
-        if (get_class($collection) == 'Mage_Catalog_Model_Resource_Product_Collection') {
+        if ($this->debug) Mage::log(__METHOD__.'() Collection class: '.get_class($collection));
+
+        if ($collection instanceOf Mage_Catalog_Model_Resource_Product_Collection
+            && false === ($collection instanceOf Ess_M2ePro_Model_Mysql4_Magento_Product_Collection)
+        ) {
 
             $res = Mage::getSingleton('core/resource');
             $collection->joinTable(
                 array('m2elp' => $res->getTableName('m2epro_listing_product')),
                 'product_id=entity_id',
                 array('m2e_listing_product_id' => 'id'),
-                null,
+                array('status' => array(2,7)),
                 'left'
             );
 
@@ -37,6 +43,7 @@ class EcomCore_M2ext_Model_Observer_Collection
             $collection->addFilterToMap('ebayitemid', 'm2eitem.item_id');
 
             $collection->getSelect()->group('e.entity_id');
+            if ($this->debug) Mage::log(__METHOD__.'() '.$collection->getSelect());
 
         }
     }
