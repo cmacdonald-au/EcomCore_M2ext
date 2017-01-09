@@ -6,6 +6,5 @@
     "homepage":"https://ecomcore.net/m2ext",
     "require": {
         "magento-hackathon/magento-composer-installer": "*",
-        "ecomcore/composer-autoloader" : "*"
     }
 }
