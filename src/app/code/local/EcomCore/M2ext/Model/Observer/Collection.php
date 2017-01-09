@@ -12,6 +12,13 @@ class EcomCore_M2ext_Model_Observer_Collection
 
         if ($this->debug) Mage::log(__METHOD__.'() Collection class: '.get_class($collection));
 
+        $columns = $collection->getSelect()->getPart('columns');
+        foreach ($columns as $column) {
+            if ($column[0] == 'elp' && $column[1] == 'ebay_item_id') {
+                return;
+            }
+        }
+
         if ($collection instanceOf Mage_Catalog_Model_Resource_Product_Collection
             && false === ($collection instanceOf Ess_M2ePro_Model_Mysql4_Magento_Product_Collection)
         ) {
