@@ -5,6 +5,6 @@
     "description":"Provides useful extensions to the excellent M2ePro extensions",
     "homepage":"https://ecomcore.net/m2ext",
     "require": {
-        "magento-hackathon/magento-composer-installer": "*",
+        "magento-hackathon/magento-composer-installer": "*"
     }
 }
