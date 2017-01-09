@@ -4,5 +4,4 @@
 # EcomCore M2ext
 src/app/code/local/EcomCore/M2ext                            app/code/local/EcomCore/M2ext
 src/app/etc/modules/EcomCore_M2ext.xml                           app/etc/modules/EcomCore_M2ext.xml
-src/skin/frontend/base/default/ecomcore/m2ext                    skin/frontend/base/default/ecomcore/m2ext
 src/lib/EcomCore/M2Ext.php                                       lib/EcomCore/M2Ext.php
