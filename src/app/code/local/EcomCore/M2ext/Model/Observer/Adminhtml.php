@@ -32,7 +32,17 @@ class EcomCore_M2ext_Model_Observer_Adminhtml
             return '';
         }
 
-        return '<a href="http://ebay.com.au/itm/-/' . $value . '" target="_blank">'.$value.'</a>';
+        if (strpos($value, ',') !== false) {
+            $value = explode(',', $value);
+        } else {
+            $value = array($value);
+        }
+
+        foreach ($value as &$listingData) {
+            $listingData = '<a href="http://ebay.com.au/itm/-/' . $listingData . '" target="_blank">'.$listingData.'</a>';
+        }
+
+        return implode('<br />', $value);
     }
 
     public function itemFilter($collection, $column)
